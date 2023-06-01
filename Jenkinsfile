@@ -91,5 +91,23 @@ pipeline{
                }
             }
         }
+        stage('Docker Image Push : DockerHub '){
+         when { expression {  params.action == 'create' } }
+            steps{
+               script{
+                   
+                   dockerImagePush("${params.IMAGE_NAME}","${params.IMAGE_TAG}","${params.DOCKERHUB_USERNAME}")
+               }
+            }
+        }   
+        stage('Docker Image Cleanup : DockerHub '){
+         when { expression {  params.action == 'create' } }
+            steps{
+               script{
+                   
+                   dockerImageCleanup("${params.IMAGE_NAME}","${params.IMAGE_TAG}","${params.DOCKERHUB_USERNAME}")
+               }
+            }
+        }      
     }
 }
