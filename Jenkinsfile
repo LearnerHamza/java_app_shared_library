@@ -91,14 +91,14 @@ pipeline{
                }
             }
         }
-        stage("Push docker image into ACR"){
-            steps{
-                script{
+        // stage("Push docker image into ACR"){
+        //     steps{
+        //         script{
 
 
-                }
-            }
-        }
+        //         }
+        //     }
+        // }
         stage('Docker Image Push : DockerHub '){
          when { expression {  params.action == 'create' } }
             steps{
