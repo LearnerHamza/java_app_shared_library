@@ -12,9 +12,10 @@ pipeline{
     }
 
     stages{
- when { expression {  params.action == 'create' } }
 
-        stage("checkout from SCM"){
+    when { expression {  params.action == 'create' } }
+        {
+         stage("checkout from SCM"){
             steps{
                 script{
                     gitCheckout(
@@ -23,8 +24,8 @@ pipeline{
                     )
                 }
             }
-        }
-        stage("Unit Test maven"){
+            }
+                stage("Unit Test maven"){
             steps{
                 script{
 
@@ -49,5 +50,7 @@ pipeline{
                }
             }
         }
+        }
+     
     }
 }
