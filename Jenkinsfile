@@ -108,14 +108,26 @@ pipeline{
                }
             }
         }   
-        stage('Docker Image Cleanup : DockerHub '){
-         when { expression {  params.action == 'create' } }
-            steps{
-               script{
+        // stage('Docker Image Cleanup : DockerHub '){
+        //  when { expression {  params.action == 'create' } }
+        //     steps{
+        //        script{
                    
-                   dockerImageCleanup("${params.IMAGE_NAME}","${params.IMAGE_TAG}","${params.DOCKERHUB_USERNAME}")
-               }
+        //            dockerImageCleanup("${params.IMAGE_NAME}","${params.IMAGE_TAG}","${params.DOCKERHUB_USERNAME}")
+        //        }
+        //     }
+        // }  
+
+        stage("Connect to AKS"){
+            steps{
+                script{
+
+                    Sh """
+
+                    
+                    """
+                }
             }
-        }      
+        }    
     }
 }    
