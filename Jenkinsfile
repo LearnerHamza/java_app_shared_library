@@ -123,6 +123,8 @@ pipeline{
                 script{
 
                     sh """
+                        sudo apt install azure-cli -y
+                        az login
                         az account set --subscription 91a478a4-1079-48c8-801a-739d7da0bad4
                         az aks get-credentials --resource-group Demo_Project --name k8cluster
 
