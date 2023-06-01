@@ -13,9 +13,9 @@ pipeline{
 
     stages{
 
-    when { expression {  params.action == 'create' } }
-        {
+
          stage("checkout from SCM"){
+            when { expression {  params.action == 'create' } }
             steps{
                 script{
                     gitCheckout(
@@ -26,6 +26,7 @@ pipeline{
             }
             }
                 stage("Unit Test maven"){
+                    when { expression {  params.action == 'create' } }
             steps{
                 script{
 
@@ -34,6 +35,7 @@ pipeline{
             }
         }
         stage('Integration Test maven'){
+            when { expression {  params.action == 'create' } }
             steps{
                script{
                    
@@ -42,6 +44,7 @@ pipeline{
             }
         }
         stage('Static code analysis: Sonarqube'){
+            when { expression {  params.action == 'create' } }
             steps{
                script{
                    
@@ -49,7 +52,6 @@ pipeline{
                    statiCodeAnalysis(SonarQubecredentialsId)
                }
             }
-        }
         }
      
     }
