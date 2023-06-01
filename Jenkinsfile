@@ -9,9 +9,8 @@ pipeline{
             steps{
                 script{
 
-                    def GitcredentialsId = "GitHub_Password"
+                    git credentialsId = "GitHub_Password"
                     gitCheckout(
-                    GitcredentialsId,
                     branch: "main",
                     url: "https://github.com/LearnerHamza/java_app_shared_library.git"
                     )
