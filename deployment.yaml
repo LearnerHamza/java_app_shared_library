@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
       - name: myjavaapp
-        image: zafarcontainer20.azurecr.io/complete-project:latest
+        image: zafarhamza/javapp:latest
+      #  image: zafarcontainer20.azurecr.io/complete-project:latest
         ports:
         - containerPort: 8080
 
