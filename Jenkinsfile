@@ -131,28 +131,39 @@ pipeline{
                 }
             }
         }   
-        stage('Deployment on EKS Cluster'){
-            when { expression {  params.action == 'create' } }
-            steps{
-                script{
+        // stage('Deployment on EKS Cluster'){
+        //     when { expression {  params.action == 'create' } }
+        //     steps{
+        //         script{
                   
-                  def apply = false
+        //           def apply = false
 
-                  try{
-                    input message: 'please confirm to deploy on Aks', ok: 'Ready to apply the config ?'
-                    apply = true
-                  }catch(err){
-                    apply= false
-                    currentBuild.result  = 'UNSTABLE'
-                  }
-                  if(apply){
+        //           try{
+        //             input message: 'please confirm to deploy on Aks', ok: 'Ready to apply the config ?'
+        //             apply = true
+        //           }catch(err){
+        //             apply= false
+        //             currentBuild.result  = 'UNSTABLE'
+        //           }
+        //           if(apply){
 
-                    sh """
-                      kubectl apply -f .
-                    """
-                  }
-                }
-            }
-        }     
+        //             sh """
+        //               kubectl apply -f .
+        //             """
+        //           }
+        //         }
+        //     }
+        // }  
+        stage("Kubernets Deploy"){
+             steps{
+                script{
+                    KubernetsDeploy(
+                         configs: 'deployment.yaml'
+                         kubeconfigId: 'K8s'//Kubenetes secret id name
+                         enableConfigSubstitution: false
+                     )
+                 }
+             }
+         }   
     }
 }    
