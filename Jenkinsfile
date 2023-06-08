@@ -118,19 +118,19 @@ pipeline{
         //     }
         // }  
 
-        stage("Connect to AKS"){
-            steps{
-                script{
+        // stage("Connect to AKS"){
+        //     steps{
+        //         script{
 
-                    sh """
-                        az login
-                        az account set --subscription 91a478a4-1079-48c8-801a-739d7da0bad4
-                        az aks get-credentials --resource-group Demo_Project --name k8cluster
+        //             sh """
+        //                 az login
+        //                 az account set --subscription 91a478a4-1079-48c8-801a-739d7da0bad4
+        //                 az aks get-credentials --resource-group Demo_Project --name k8cluster
 
-                    """
-                }
-            }
-        }   
+        //             """
+        //         }
+        //     }
+        // }   
         // stage('Deployment on EKS Cluster'){
         //     when { expression {  params.action == 'create' } }
         //     steps{
@@ -154,16 +154,21 @@ pipeline{
         //         }
         //     }
         // }  
-        stage("Kubernets Deploy"){
-             steps{
-                script{
-                    KubernetsDeploy(
-                         configs: 'deployment.yaml'
-                         kubeconfigId: 'K8s'//Kubenetes secret id name
-                         enableConfigSubstitution: false
-                     )
-                 }
-             }
-         }   
+        // stage("Kubernets Deploy"){
+        //      steps{
+        //         script{
+        //             KubernetsDeploy(
+        //                  configs: 'deployment.yaml'
+        //                  kubeconfigId: 'K8s'//Kubenetes secret id name
+        //                  enableConfigSubstitution: false
+        //              )
+        //          }
+        //      }
+        //  }   
     }
+    post {
+		always {
+			mail bcc: '', body: "<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "${currentBuild.result} CI: Project name -> ${env.JOB_NAME}", to: "itsdemoid20@gmail.com";  
+		}
+	}
 }    
